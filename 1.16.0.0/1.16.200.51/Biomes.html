@@ -1,22 +1,21 @@
-<h1>BIOMES DOCUMENTATION </br>Version: 1.16.200.51</h1>
-This is documentation for a beta release of Minecraft. New features, components, and capabilities in this release are not final and might change without notice before the final release.<br/>Be sure to check the documentation once the release is out of beta if your add-on isn't working properly. Resource and Behavior Packs created for the beta are not guaranteed to work on the final release.<br/>
+<html><head></head><body><h1>BIOMES DOCUMENTATION <br>Version: 1.16.200.51</h1>
+This is documentation for a beta release of Minecraft. New features, components, and capabilities in this release are not final and might change without notice before the final release.<br>Be sure to check the documentation once the release is out of beta if your add-on isn't working properly. Resource and Behavior Packs created for the beta are not guaranteed to work on the final release.<br>
 <h2><p id="Index">Index</p></h2>
 <table border="1">
-<tr> <th><a href="#Overview">Overview</a></th> </tr>
+<tbody><tr> <th><a href="#Overview">Overview</a></th> </tr>
 <tr> <th><a href="#JSON format">JSON format</a></th> </tr>
 <tr> <th><a href="#Adding biomes">Adding biomes</a></th> </tr>
 <tr> <th><a href="#Schema">Schema</a></th> </tr>
-</table>
+</tbody></table>
 <a href="#Index">Back to top</a>
 <h1><p id="Overview">Overview</p></h1>
 
-Biomes describe how a local patch of the world should look and behave. By writing custom biome data you could:</br>1) Change the general shape of terrain for a biome.</br>2) Change the ratio of frequency of biome types.</br>3) Change the blocks that make up the biome, both at the surface and below.</br>4) Change the distribution of decorative features (e.g. trees, grass, etc.) for a biome.</br>5) Change the mobs that spawn for a biome.</br>6) Change the climate for a biome.</br>7) ...and more!</br><a href="#Index">Back to top</a><br><br>
+Biomes describe how a local patch of the world should look and behave. By writing custom biome data you could:<br>1) Change the general shape of terrain for a biome.<br>2) Change the ratio of frequency of biome types.<br>3) Change the blocks that make up the biome, both at the surface and below.<br>4) Change the distribution of decorative features (e.g. trees, grass, etc.) for a biome.<br>5) Change the mobs that spawn for a biome.<br>6) Change the climate for a biome.<br>7) ...and more!<br><a href="#Index">Back to top</a><br><br>
 
 <h1><p id="JSON format">JSON format</p></h1>
 
-All biomes should specify the version that they target via the "format_version" field. The remainder of the biome data is divided up into independent JSON sub-objects, or components. In general you can think of the presence of a component as defining what game behaviors a biome participates in with the component fields defining how it participates. Broadly there are two categories of components:</br>1) Namespaced components (i.e. those with a 'name:' prefix) map to specific behaviors in-game; they may have member fields that parameterize that behavior; only names that have a valid mapping are supported.</br>2) Components with no namespace are treated as 'tags': any name consisting of alphanumeric characters, '.' and '_' is permitted; the tag is attached to the biome so that either code or data may check for its existence; tag components may not have member fields.</br></br>See the full biome schema below for additional details and the full list of namespaced components.</br><h2></h2>
-Here is a sample biome<br / ><textarea readonly="true" cols="51" rows="32">
-{
+All biomes should specify the version that they target via the "format_version" field. The remainder of the biome data is divided up into independent JSON sub-objects, or components. In general you can think of the presence of a component as defining what game behaviors a biome participates in with the component fields defining how it participates. Broadly there are two categories of components:<br>1) Namespaced components (i.e. those with a 'name:' prefix) map to specific behaviors in-game; they may have member fields that parameterize that behavior; only names that have a valid mapping are supported.<br>2) Components with no namespace are treated as 'tags': any name consisting of alphanumeric characters, '.' and '_' is permitted; the tag is attached to the biome so that either code or data may check for its existence; tag components may not have member fields.<br><br>See the full biome schema below for additional details and the full list of namespaced components.<br><h2></h2>
+Here is a sample biome<br><textarea readonly="true" cols="51" rows="32">{
   "plains": {
     "format_version": "1.12.0",
 
@@ -54,18 +53,17 @@ Here is a sample biome<br / ><textarea readonly="true" cols="51" rows="32">
     "plains": {}
   }
 }
-</textarea> </br>
+</textarea> <br>
 <a href="#Index">Back to top</a><br><br>
 
 <h1><p id="Adding biomes">Adding biomes</p></h1>
 
-Biomes are read from JSON files in the biomes subfolders of behavior packs. Loading enforces one biome per file; the file name and the actual biome name must match. Adding a file with a new name to the biome data location will make it available for the game to use, while existing biomes can be overriden via files that match their existing name. Note that if you add a new biome you'll need to write component data that allows it to participate in world generation (see full schema below), or else it won't show up in your worlds!</br><a href="#Index">Back to top</a><br><br>
+Biomes are read from JSON files in the biomes subfolders of behavior packs. Loading enforces one biome per file; the file name and the actual biome name must match. Adding a file with a new name to the biome data location will make it available for the game to use, while existing biomes can be overriden via files that match their existing name. Note that if you add a new biome you'll need to write component data that allows it to participate in world generation (see full schema below), or else it won't show up in your worlds!<br><a href="#Index">Back to top</a><br><br>
 
 <h1><p id="Schema">Schema</p></h1>
 
 <h2></h2>
-<br / ><textarea readonly="true" cols="192" rows="32">
-  {
+<br><textarea readonly="true" cols="192" rows="32">  {
       object "minecraft:climate"[0,7] : opt // Describes temperature, humidity, precipitation, etc.  Biomes without this component will have default values.
       {
           float "temperature" : opt
@@ -87,28 +85,28 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
               float "[0..0]"
               float "[1..1]"
           }
-          string "noise_type"<"stone_beach", "deep_ocean", "default", "default_mutated", "lowlands", "river", "ocean", "highlands", "taiga", "mountains", "mushroom", "less_extreme", "extreme", "beach", "swamp"> : opt
+          string "noise_type"&lt;"stone_beach", "deep_ocean", "default", "default_mutated", "lowlands", "river", "ocean", "highlands", "taiga", "mountains", "mushroom", "less_extreme", "extreme", "beach", "swamp"&gt; : opt
       }
       object "minecraft:forced_features"[0,11] : opt // Force specific decorative features (trees, plants, etc.) to appear in this Biome, regardless of normal decoration rules.
       {
           array "first_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -118,9 +116,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -130,9 +128,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -145,22 +143,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "before_underground_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -170,9 +168,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -182,9 +180,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -197,22 +195,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "underground_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -222,9 +220,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -234,9 +232,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -249,22 +247,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "after_underground_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -274,9 +272,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -286,9 +284,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -301,22 +299,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "before_surface_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -326,9 +324,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -338,9 +336,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -353,22 +351,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "surface_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -378,9 +376,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -390,9 +388,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -405,22 +403,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "after_surface_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -430,9 +428,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -442,9 +440,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -457,22 +455,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "before_sky_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -482,9 +480,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -494,9 +492,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -509,22 +507,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "sky_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -534,9 +532,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -546,9 +544,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -561,22 +559,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "after_sky_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -586,9 +584,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -598,9 +596,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -613,22 +611,22 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "final_pass" : opt
           {
-              object "<any array element>" : opt
+              object "&lt;any array element&gt;" : opt
               {
                   molang "iterations" // Number of scattered positions to generate
                   object "scatter_chance" : opt // Probability numerator / denominator that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
                   {
-                      int "numerator"<1-*>
-                      int "denominator"<1-*>
+                      int "numerator"&lt;1-*&gt;
+                      int "denominator"&lt;1-*&gt;
                   }
                   molang "scatter_chance" : opt // Probability (0-100] that this scatter will occur.  Not evaluated each iteration; either no iterations will run, or all will.
-                  enumerated_value "coordinate_eval_order"<"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"> : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
+                  enumerated_value "coordinate_eval_order"&lt;"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"&gt; : opt // The order in which coordinates will be evaluated. Should be used when a coordinate depends on another. If omitted, defaults to "xzy".
                   molang "x" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "x" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -638,9 +636,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "z" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "z" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -650,9 +648,9 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   molang "y" : opt // Expression for the coordinate (evaluated each iteration).  Mutually exclusive with random distribution object below.
                   object "y" : opt // Distribution for the coordinate (evaluated each iteration).  Mutually exclusive with Molang expression above.
                   {
-                      enumerated_value "distribution"<"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"> // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
-                      int "step_size"<1-*> : opt // When the distribution type is grid, defines the distance between steps along this axis
-                      int "grid_offset"<0-*> : opt // When the distribution type is grid, defines the offset along this axis
+                      enumerated_value "distribution"&lt;"uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"&gt; // Type of distribution - uniform random, gaussian (centered in the range), or grid (either fixed-step or jittered)
+                      int "step_size"&lt;1-*&gt; : opt // When the distribution type is grid, defines the distance between steps along this axis
+                      int "grid_offset"&lt;0-*&gt; : opt // When the distribution type is grid, defines the offset along this axis
                       array "extent"[2]
                       {
                           molang "[0..0]" : opt // Lower bound (inclusive) of the scatter range, as an offset from the input point to scatter around
@@ -678,7 +676,7 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
       {
           array "adjustments" : opt // All adjustments that match the column's noise values will be applied in the order listed.
           {
-              object "<any array element>"
+              object "&lt;any array element&gt;"
               {
                   object "materials"
                   {
@@ -690,8 +688,8 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
                   }
                   array "noise_range"[2] : opt // Defines a range of noise values [min, max) for which this adjustment should be applied.
                   {
-                      float "[0..0]"<-1.000000-1.000000>
-                      float "[1..1]"<-1.000000-1.000000>
+                      float "[0..0]"&lt;-1.000000-1.000000&gt;
+                      float "[1..1]"&lt;-1.000000-1.000000&gt;
                   }
                   array "height_range"[2] : opt // Defines a range of noise values [min, max] for which this adjustment should be applied.
                   {
@@ -739,11 +737,11 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
       {
           array "floor_materials"[1,*] // Materials used for the surface floor.
           {
-              block_reference "<any array element>"
+              block_reference "&lt;any array element&gt;"
           }
           array "ceiling_materials"[1,*] // Materials used for the surface ceiling.
           {
-              block_reference "<any array element>"
+              block_reference "&lt;any array element&gt;"
           }
           block_reference "sea_material" // Material used to replace air blocks below sea level.
           block_reference "foundation_material" // Material used to repalce solid blocks that are not surface blocks.
@@ -754,8 +752,8 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           biome_reference "hills_transformation" : opt
           array "hills_transformation"[1,*] : opt
           {
-              biome_reference "<any array element>" : opt
-              array "<any array element>"[2] : opt
+              biome_reference "&lt;any array element&gt;" : opt
+              array "&lt;any array element&gt;"[2] : opt
               {
                   biome_reference "[0..0]"
                   int "[1..1]"
@@ -764,8 +762,8 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           biome_reference "mutate_transformation" : opt
           array "mutate_transformation"[1,*] : opt
           {
-              biome_reference "<any array element>" : opt
-              array "<any array element>"[2] : opt
+              biome_reference "&lt;any array element&gt;" : opt
+              array "&lt;any array element&gt;"[2] : opt
               {
                   biome_reference "[0..0]"
                   int "[1..1]"
@@ -773,17 +771,17 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           }
           array "generate_for_climates" : opt // Controls the world generation climate categories that this biome can spawn for.  A single biome can be associated with multiple categories with different weightings.
           {
-              array "<any array element>"[2]
+              array "&lt;any array element&gt;"[2]
               {
-                  enumerated_value "[0..0]"<"medium", "warm", "lukewarm", "cold", "frozen"> // Name of a climate category
+                  enumerated_value "[0..0]"&lt;"medium", "warm", "lukewarm", "cold", "frozen"&gt; // Name of a climate category
                   int "[1..1]" // Weight with which this biome should be selected, relative to other biomes in the same category
               }
           }
           biome_reference "river_transformation" : opt
           array "river_transformation"[1,*] : opt
           {
-              biome_reference "<any array element>" : opt
-              array "<any array element>"[2] : opt
+              biome_reference "&lt;any array element&gt;" : opt
+              array "&lt;any array element&gt;"[2] : opt
               {
                   biome_reference "[0..0]"
                   int "[1..1]"
@@ -792,8 +790,8 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
           biome_reference "shore_transformation" : opt
           array "shore_transformation"[1,*] : opt
           {
-              biome_reference "<any array element>" : opt
-              array "<any array element>"[2] : opt
+              biome_reference "&lt;any array element&gt;" : opt
+              array "&lt;any array element&gt;"[2] : opt
               {
                   biome_reference "[0..0]"
                   int "[1..1]"
@@ -812,6 +810,7 @@ Biomes are read from JSON files in the biomes subfolders of behavior packs. Load
       object "[a-z0-9_.:]+" : opt // Attach arbitrary string tags to this biome
   }
 
-</textarea> </br>
+</textarea> <br>
 <a href="#Index">Back to top</a><br><br>
 
+</body></html>
